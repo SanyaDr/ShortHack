@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException, Request, Form, Cookie
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 import os
 from typing import Optional
@@ -294,13 +295,47 @@ async def read_leaderboard(
         user: Optional[models.User] = Depends(get_current_user_from_cookie),
         db: Session = Depends(get_db)
 ):
-    leaderboard = crud.get_leaderboard(db)
+    leaderboard = crud.get_leaderboard(db, limit=25)
+
+    # Вычисляем статистику для отображения
+    total_users = db.query(models.User).count()
+    total_games_played = db.query(models.GameResult).count()
+    total_points = db.query(func.sum(models.GameResult.total_points)).scalar() or 0
+
+    # Средний балл на пользователя
+    avg_points_per_user = total_points / total_users if total_users > 0 else 0
+
+    # Максимальное количество баллов для прогресс-бара
+    max_points = max([player['total_points'] for player in leaderboard]) if leaderboard else 0
+
+    user_stats = {}
+    if user:
+        user_stats = crud.get_user_stats(db, user.id)
+
+        # Получаем ранг пользователя
+        full_leaderboard = crud.get_leaderboard(db, limit=1000)
+        user_rank = None
+        for entry in full_leaderboard:
+            if entry['user_id'] == user.id:
+                user_rank = entry['rank']
+                break
+    else:
+        user_rank = None
+        user_stats = {'total_points': 0, 'games_played': 0}
+
     return templates.TemplateResponse("leaderboard.html", {
         "request": request,
         "user": user,
-        "leaderboard": leaderboard
+        "leaderboard": leaderboard,
+        "user_rank": user_rank,
+        "user_points": user_stats.get('total_points', 0),
+        "user_games_played": user_stats.get('games_played', 0),
+        "total_users": total_users,
+        "total_games_played": total_games_played,
+        "total_points": total_points,
+        "avg_points_per_user": avg_points_per_user,
+        "max_points": max_points
     })
-
 # Награды
 @app.get("/rewards", response_class=HTMLResponse)
 async def read_rewards(
