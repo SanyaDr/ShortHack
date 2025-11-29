@@ -22,12 +22,11 @@
             <a href="/leaderboard" class="nav-link">Лидерборд</a>
             <a href="/rewards" class="nav-link">Награды</a>
             <div class="user-menu">
-                <span class="user-name">{{ user.full_name }}</span>
-                <div class="user-dropdown">
-                    <a href="/profile" class="dropdown-link">Профиль</a>
-                    <a href="/logout" class="dropdown-link logout-link">Выйти</a>
-                </div>
+                <a href="/profile" class="user-telegram">
+                    {{ user.telegram_id }}
+                </a>
             </div>
+            <a href="/logout" class="nav-link logout-link">Выйти</a>
             {% else %}
             <a href="/games" class="nav-link">Игры</a>
             <a href="/leaderboard" class="nav-link">Лидерборд</a>
