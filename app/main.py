@@ -109,7 +109,8 @@ async def read_internships(
         "user": user
     })
 
-# Регистрация
+
+# Регистрация - GET метод (показывает форму)
 @app.get("/register", response_class=HTMLResponse)
 async def register_form(
         request: Request,
@@ -123,6 +124,7 @@ async def register_form(
         "user": user
     })
 
+# Регистрация - POST метод (обрабатывает форму)
 @app.post("/register")
 async def register(
         request: Request,
@@ -136,14 +138,6 @@ async def register(
         db: Session = Depends(get_db)
 ):
     try:
-        # Проверяем длину пароля
-        if len(password) > 72:
-            return templates.TemplateResponse("auth/register.html", {
-                "request": request,
-                "error": "Пароль слишком длинный (максимум 72 символа)",
-                "user": None
-            })
-
         # Проверяем минимальную длину пароля
         if len(password) < 6:
             return templates.TemplateResponse("auth/register.html", {
@@ -168,19 +162,17 @@ async def register(
             })
 
         # Создаем пользователя
-        hashed_password = auth.get_password_hash(password)
-        db_user = models.User(
+        user_data = schemas.UserCreate(
             email=email,
             phone=phone,
             telegram_id=telegram_id,
             full_name=full_name,
-            interests=interests,
+            password=password,
             study_direction=study_direction,
-            hashed_password=hashed_password
+            interests=interests
         )
-        db.add(db_user)
-        db.commit()
-        db.refresh(db_user)
+
+        user = crud.create_user(db=db, user=user_data)
 
         return RedirectResponse(url="/login", status_code=303)
 
@@ -191,6 +183,24 @@ async def register(
             "error": f"Произошла ошибка при регистрации: {str(e)}",
             "user": None
         })
+
+def create_user(db: Session, user: schemas.UserCreate):
+    from .auth import get_password_hash
+
+    hashed_password = get_password_hash(user.password)
+    db_user = models.User(
+        email=user.email,
+        phone=user.phone,
+        telegram_id=user.telegram_id,
+        full_name=user.full_name,
+        interests=user.interests,
+        study_direction=user.study_direction,
+        hashed_password=hashed_password
+    )
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
 
 # Вход в систему
 @app.get("/login", response_class=HTMLResponse)
@@ -313,7 +323,7 @@ async def read_games(
         return RedirectResponse(url="/login", status_code=303)
 
     games = crud.get_games(db, active_only=True)
-    return templates.TemplateResponse("games/list.html", {
+    return templates.TemplateResponse("games.html", {
         "request": request,
         "user": user,
         "games": games

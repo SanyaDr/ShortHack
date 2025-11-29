@@ -3,7 +3,8 @@ uvicorn
 sqlalchemy
 python-multipart
 python-jose
-passlib
-bcrypt
 email-validator
 jinja2
+
+#passlib
+#bcrypt
