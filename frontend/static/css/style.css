@@ -2144,3 +2144,15 @@ body {
         margin-bottom: 12px;
     }
 }
+
+/* По умолчанию: цифры на светлом фоне – зелёные и без объёма */
+.stat-number {
+    color: #5FAF2D;
+    text-shadow: none;
+}
+
+/* А именно в секции статистики – белые и объёмные */
+.stats-section .stat-number {
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
