@@ -1815,42 +1815,6 @@ tr:hover {
     text-align: center;
 }
 
-/* Адаптивность */
-@media (max-width: 768px) {
-    .auth-card {
-        padding: 30px 20px;
-        margin: 20px;
-    }
-
-    .info-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-    }
-
-    .info-item span {
-        text-align: left;
-    }
-
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .actions-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .benefits-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .preview-item {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
-    }
-}
-
 /* Стили для пользовательского меню (обновленные) */
 .user-menu {
     display: flex;
@@ -2593,4 +2557,46 @@ body {
     .stat-value {
         font-size: 1.8rem;
     }
+}
+
+/* Стили для секции эффективности */
+.efficiency-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.efficiency-icon {
+    font-size: 2rem;
+    width: 60px;
+    height: 60px;
+    background: #f8fdf5;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.efficiency-details h4 {
+    color: #2c3e50;
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.efficiency-details p {
+    color: #7f8c8d;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.efficiency-rating {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 6px;
+    background: #f8f9fa;
 }

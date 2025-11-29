@@ -573,12 +573,6 @@ function nextTruthQuestion() {
     }
 }
 
-function endTruthGame() {
-    document.getElementById('truth-game-play').style.display = 'none';
-    document.getElementById('truth-game-results').style.display = 'block';
-    document.getElementById('truth-final-score').textContent = truthGameState.score;
-}
-
 document.getElementById('truth-btn').addEventListener('click', () => handleTruthAnswer(true));
 document.getElementById('false-btn').addEventListener('click', () => handleTruthAnswer(false));
 
@@ -694,13 +688,114 @@ function nextBugQuestion() {
     }
 }
 
+// Функция для отправки результатов игры на сервер
+async function sendGameResults(gameType, score, totalPoints) {
+    try {
+        const formData = new FormData();
+        formData.append('game_type', gameType);
+        formData.append('score', score);
+        formData.append('total_points', totalPoints);
+
+        const response = await fetch('/api/game/complete', {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            console.log(`✅ Игра завершена! Баллы: +${result.points_earned}, Всего: ${result.new_points}, Игр сыграно: ${result.games_played}`);
+
+            // Показываем расширенное уведомление
+            showPointsNotification(result.points_earned, result.new_points, result.games_played, result.average_score);
+        } else {
+            console.error('❌ Ошибка начисления баллов:', result.error);
+        }
+    } catch (error) {
+        console.error('❌ Ошибка отправки результатов:', error);
+    }
+}
+
+// Функция для показа уведомления о начисленных баллах
+function showPointsNotification(pointsEarned, totalPoints, gamesPlayed, averageScore) {
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #5FAF2D, #4d9525);
+        color: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        z-index: 1000;
+        font-weight: bold;
+        animation: slideIn 0.3s ease;
+        max-width: 300px;
+        border-left: 5px solid #4d9525;
+    `;
+
+    notification.innerHTML = `
+        <div style="font-size: 1.2em; margin-bottom: 10px;">🎉 Отлично!</div>
+        <div style="margin-bottom: 5px;">+${pointsEarned} баллов</div>
+        <div style="margin-bottom: 5px;">Всего баллов: ${totalPoints}</div>
+        <div style="margin-bottom: 5px;">Сыграно игр: ${gamesPlayed}</div>
+        <div>Средний балл: ${averageScore}</div>
+    `;
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 5000);
+}
+
+// Добавьте анимации для уведомления
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
+
+function endTruthGame() {
+    document.getElementById('truth-game-play').style.display = 'none';
+    document.getElementById('truth-game-results').style.display = 'block';
+    document.getElementById('truth-final-score').textContent = truthGameState.score;
+
+    // Рассчитываем баллы для "Правда или ложь" (1 балл за правильный ответ)
+    const pointsEarned = truthGameState.score;
+
+    // Отправляем результаты на сервер
+    sendGameResults('truth_or_lie', truthGameState.score, pointsEarned);
+}
+
 function endBugGame() {
     document.getElementById('bug-game-play').style.display = 'none';
     document.getElementById('bug-game-results').style.display = 'block';
     document.getElementById('bug-final-score').textContent = bugGameState.score;
+
+    // В игре "Найди баг" уже 2 балла за правильный ответ
+    const pointsEarned = bugGameState.score;
+
+    // Отправляем результаты на сервер
+    sendGameResults('find_bug', bugGameState.score, pointsEarned);
 }
+
+
 
 // Инициализация
 showGameSelection();
+
 </script>
 {% endblock %}

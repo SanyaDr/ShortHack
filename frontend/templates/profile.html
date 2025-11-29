@@ -37,13 +37,7 @@
                 <div class="stat-card">
                     <div class="stat-icon">⭐</div>
                     <div class="stat-info">
-                        <div class="stat-value">
-                            {% if games_played > 0 %}
-                            {{ (total_points / games_played)|round(1) }}
-                            {% else %}
-                            0
-                            {% endif %}
-                        </div>
+                        <div class="stat-value">{{ average_score }}</div>
                         <div class="stat-label">Средний балл</div>
                     </div>
                 </div>
@@ -62,7 +56,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Основная информация -->
         <div class="info-section">
             <h2>ℹ️ Основная информация</h2>
@@ -160,6 +153,7 @@
         </div>
 
         <!-- Прогресс -->
+        <!-- Прогресс -->
         <div class="progress-section">
             <h2>🎯 Прогресс</h2>
             <div class="progress-cards">
@@ -171,33 +165,32 @@
                     <div class="progress-stats">
                         <span>{{ games_played }} из 10 игр</span>
                         <span>
-                            {% if games_played >= 10 %}
-                                🎉 Максимум!
-                            {% else %}
-                                {{ 10 - games_played }} до достижения
-                            {% endif %}
-                        </span>
+                    {% if games_played >= 10 %}
+                        🎉 Максимум!
+                    {% else %}
+                        {{ 10 - games_played }} до достижения
+                    {% endif %}
+                </span>
                     </div>
                 </div>
 
                 <div class="progress-card">
-                    <h3>Следующая награда</h3>
-                    <div class="reward-info">
-                        <div class="reward-icon">🎁</div>
-                        <div class="reward-details">
-                            <h4>Фирменный мерч</h4>
-                            <p>от 200 баллов</p>
+                    <h3>Эффективность</h3>
+                    <div class="efficiency-info">
+                        <div class="efficiency-icon">📊</div>
+                        <div class="efficiency-details">
+                            <h4>Средний балл: {{ average_score }}</h4>
+                            <p>{{ total_points }} баллов / {{ games_played }} игр</p>
                         </div>
                     </div>
-                    <div class="progress-stats">
-                        <span>{{ total_points }} из 200 баллов</span>
-                        <span>
-                            {% if total_points >= 200 %}
-                                ✅ Доступно
-                            {% else %}
-                                {{ 200 - total_points }} баллов осталось
-                            {% endif %}
-                        </span>
+                    <div class="efficiency-rating">
+                        {% if average_score >= 8 %}
+                        <span style="color: #5FAF2D;">⭐ Отличный результат!</span>
+                        {% elif average_score >= 5 %}
+                        <span style="color: #FFA500;">👍 Хороший результат</span>
+                        {% else %}
+                        <span style="color: #FF6B6B;">💪 Продолжайте тренироваться!</span>
+                        {% endif %}
                     </div>
                 </div>
             </div>

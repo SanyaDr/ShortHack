@@ -349,20 +349,6 @@ def get_user_rank(db: Session, user_id: int):
             return entry['rank']
     return None
 
-
-def get_user_stats(db: Session, user_id: int):
-    total_points = get_user_total_points(db, user_id)
-    games_played = get_user_games_played(db, user_id)
-    rank = get_user_rank(db, user_id)
-
-    return {
-        'total_points': total_points,
-        'games_played': games_played,
-        'rank': rank,
-        'average_score': total_points / games_played if games_played > 0 else 0
-    }
-
-
 # Additional utility function to get game results with multiplier info
 def get_user_game_results_with_multiplier(db: Session, user_id: int, game_id: int):
     """
@@ -388,3 +374,47 @@ def calculate_points_with_multiplier(base_points: int, multiplier: int = 5):
     Рассчитывает баллы с применением множителя
     """
     return base_points * multiplier
+
+
+def update_user_points(db: Session, user_id: int, points_to_add: int):
+    user = get_user(db, user_id)
+    if user:
+        user.points_count += points_to_add
+        db.commit()
+        db.refresh(user)
+        return user
+    return None
+
+def get_user_points(db: Session, user_id: int):
+    user = get_user(db, user_id)
+    return user.points_count if user else 0
+
+def update_user_points_and_games(db: Session, user_id: int, points_to_add: int):
+    """Обновляет баллы и увеличивает счетчик игр"""
+    user = get_user(db, user_id)
+    if user:
+        user.points_count += points_to_add
+        user.games_played_count += 1  # Увеличиваем счетчик игр
+        db.commit()
+        db.refresh(user)
+        return user
+    return None
+
+def get_user_stats(db: Session, user_id: int):
+    """Получает статистику пользователя"""
+    user = get_user(db, user_id)
+    if not user:
+        return None
+
+    # Рассчитываем средний балл
+    average_score = 0
+    if user.games_played_count > 0:
+        average_score = user.points_count / user.games_played_count
+
+    return {
+        'total_points': user.points_count,
+        'games_played': user.games_played_count,
+        'average_score': round(average_score, 1),
+        'points_count': user.points_count,
+        'games_played_count': user.games_played_count
+    }

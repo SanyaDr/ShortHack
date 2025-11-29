@@ -18,6 +18,7 @@ class User(Base):
     is_manager = Column(Boolean, default=False)
     is_admin = Column(Boolean, default=False)
     points_count = Column(Integer, default=0)
+    games_played_count = Column(Integer, default=0)  # Добавляем счетчик игр
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     # Связи

@@ -267,16 +267,24 @@ async def read_profile(
     if not user:
         return RedirectResponse(url="/login", status_code=303)
 
-    total_points = crud.get_user_total_points(db, user.id)
-    user_games = db.query(models.GameResult).filter(
-        models.GameResult.user_id == user.id
-    ).count()
+    # Получаем полную статистику пользователя
+    user_stats = crud.get_user_stats(db, user.id)
+
+    # Получаем ранг пользователя
+    leaderboard = crud.get_leaderboard(db, limit=1000)
+    user_rank = None
+    for entry in leaderboard:
+        if entry['user_id'] == user.id:
+            user_rank = entry['rank']
+            break
 
     return templates.TemplateResponse("profile.html", {
         "request": request,
         "user": user,
-        "total_points": total_points,
-        "games_played": user_games
+        "total_points": user_stats['total_points'],
+        "games_played": user_stats['games_played'],
+        "average_score": user_stats['average_score'],
+        "user_rank": user_rank
     })
 
 # Таблица лидеров
@@ -337,3 +345,49 @@ async def health_check():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
+    from fastapi import Cookie
+import json
+@app.post("/api/game/complete")
+async def complete_game(
+        request: Request,
+        game_type: str = Form(...),
+        score: int = Form(...),
+        total_points: int = Form(...),
+        access_token: Optional[str] = Cookie(None),
+        db: Session = Depends(get_db)
+):
+    """Endpoint для завершения игры и начисления баллов"""
+    if not access_token:
+        return {"success": False, "error": "Not authenticated"}
+
+    try:
+        # Получаем пользователя из токена
+        token = access_token.replace("Bearer ", "")
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email = payload.get("sub")
+
+        user = crud.get_user_by_email(db, email)
+        if not user:
+            return {"success": False, "error": "User not found"}
+
+        # Начисляем баллы и увеличиваем счетчик игр
+        updated_user = crud.update_user_points_and_games(db, user.id, total_points)
+
+        # Получаем обновленную статистику
+        user_stats = crud.get_user_stats(db, user.id)
+
+        # Логируем результат игры
+        print(f"User {user.email} completed {game_type} with score {score}, earned {total_points} points. Total games: {updated_user.games_played_count}")
+
+        return {
+            "success": True,
+            "new_points": updated_user.points_count,
+            "points_earned": total_points,
+            "games_played": updated_user.games_played_count,
+            "average_score": user_stats['average_score']
+        }
+
+    except Exception as e:
+        print(f"Error completing game: {e}")
+        return {"success": False, "error": str(e)}
