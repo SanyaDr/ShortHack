@@ -1,107 +1,357 @@
 {% extends "base.html" %}
 
-{% block title %}Правда или ложь - X5Tech{% endblock %}
+{% block title %}Игры X5Tech{% endblock %}
 
 {% block content %}
 <div class="container">
-    <h1>Правда или ложь о компании X5 Tech</h1>
+    <h1>Игры X5Tech</h1>
 
-    <div id="game-rules" class="game-rules">
-        <h2>Правила игры</h2>
-        <ul>
-            <li>Вы получите 5 случайных вопросов о компании X5 Tech</li>
-            <li>1 верный ответ = 1 балл</li>
-            <li>Неверный ответ = 0 баллов</li>
-            <li>На каждый вопрос у вас есть 60 секунд</li>
-        </ul>
-        <button id="start-game" class="btn btn-primary">Начать игру</button>
-    </div>
-
-    <div id="game-container" class="game-container" style="display: none;">
-        <div class="game-header">
-            <div class="score">Баллы: <span id="score">0</span>/5</div>
-            <div class="timer">Время: <span id="timer">60</span> сек</div>
-            <div class="question-counter">Вопрос <span id="current-question">1</span>/5</div>
-        </div>
-
-        <div class="question-container">
-            <h2 id="question-text"></h2>
-            <div class="answer-buttons">
-                <button id="true-btn" class="btn btn-success">Правда</button>
-                <button id="false-btn" class="btn btn-danger">Ложь</button>
+    <!-- Выбор игры -->
+    <div id="game-selection" class="game-selection">
+        <h2>Выберите игру</h2>
+        <div class="game-cards">
+            <div class="game-card" data-game="truth-game">
+                <h3>Правда или ложь</h3>
+                <p>Проверьте свои знания о компании X5 Tech</p>
+                <button class="btn btn-primary">Играть</button>
+            </div>
+            <div class="game-card" data-game="bug-game">
+                <h3>Найди баг</h3>
+                <p>Найдите ошибки в коде на разных языках программирования</p>
+                <button class="btn btn-primary">Играть</button>
             </div>
         </div>
-
-        <div id="result-message" class="result-message" style="display: none;"></div>
     </div>
 
-    <div id="game-results" class="game-results" style="display: none;">
-        <h2>Результаты игры</h2>
-        <p>Вы набрали <span id="final-score">0</span> из 5 баллов!</p>
-        <button id="restart-game" class="btn btn-primary">Играть снова</button>
+    <!-- Игра "Правда или ложь" -->
+    <div id="truth-game" class="game-container" style="display: none;">
+        <div class="game-header">
+            <button id="back-to-menu-truth" class="btn btn-secondary">← Назад к выбору игр</button>
+            <h2>Правда или ложь о компании X5 Tech</h2>
+        </div>
+
+        <div id="truth-game-rules" class="game-rules">
+            <h3>Правила игры</h3>
+            <ul>
+                <li>Вы получите 5 случайных вопросов о компании X5 Tech</li>
+                <li>1 верный ответ = 1 балл</li>
+                <li>Неверный ответ = 0 баллов</li>
+                <li>На каждый вопрос у вас есть 60 секунд</li>
+            </ul>
+            <button id="start-truth-game" class="btn btn-primary">Начать игру</button>
+        </div>
+
+        <div id="truth-game-play" class="game-play" style="display: none;">
+            <div class="game-stats">
+                <div class="score">Баллы: <span id="truth-score">0</span>/5</div>
+                <div class="timer">Время: <span id="truth-timer">60</span> сек</div>
+                <div class="question-counter">Вопрос <span id="truth-current-question">1</span>/5</div>
+            </div>
+
+            <div class="question-container">
+                <h3 id="truth-question-text"></h3>
+                <div class="answer-buttons">
+                    <button id="truth-btn" class="btn btn-success">Правда</button>
+                    <button id="false-btn" class="btn btn-danger">Ложь</button>
+                </div>
+            </div>
+
+            <div id="truth-result-message" class="result-message" style="display: none;"></div>
+        </div>
+
+        <div id="truth-game-results" class="game-results" style="display: none;">
+            <h3>Результаты игры</h3>
+            <p>Вы набрали <span id="truth-final-score">0</span> из 5 баллов!</p>
+            <button id="restart-truth-game" class="btn btn-primary">Играть снова</button>
+        </div>
+    </div>
+
+    <!-- Игра "Найди баг" -->
+    <div id="bug-game" class="game-container" style="display: none;">
+        <div class="game-header">
+            <button id="back-to-menu-bug" class="btn btn-secondary">← Назад к выбору игр</button>
+            <h2>Найди баг в коде</h2>
+        </div>
+
+        <div id="bug-game-rules" class="game-rules">
+            <h3>Правила игры</h3>
+            <p>В каждом примере кода найдите одну строку, содержащую синтаксис из другого языка программирования.</p>
+            <ul>
+                <li>Вы получите 5 примеров кода с ошибками</li>
+                <li>За каждый правильный ответ вы получите 2 балла</li>
+                <li>Максимальный результат - 10 баллов</li>
+            </ul>
+            <button id="start-bug-game" class="btn btn-primary">Начать игру</button>
+        </div>
+
+        <div id="bug-game-play" class="game-play" style="display: none;">
+            <div class="game-stats">
+                <div class="score">Баллы: <span id="bug-score">0</span>/10</div>
+                <div class="question-counter">Вопрос <span id="bug-current-question">1</span>/5</div>
+            </div>
+
+            <div class="question-container">
+                <div class="code-language">Язык: <span id="bug-language-name"></span></div>
+                <pre id="bug-code-block" class="code-block"></pre>
+
+                <div class="answer-section">
+                    <p>Выберите строку с ошибкой:</p>
+                    <div id="bug-line-buttons" class="line-buttons"></div>
+                </div>
+            </div>
+
+            <div id="bug-result-message" class="result-message" style="display: none;"></div>
+        </div>
+
+        <div id="bug-game-results" class="game-results" style="display: none;">
+            <h3>Результаты игры</h3>
+            <p>Вы набрали <span id="bug-final-score">0</span> из 10 баллов!</p>
+            <button id="restart-bug-game" class="btn btn-primary">Играть снова</button>
+        </div>
     </div>
 </div>
 
 <style>
-.game-rules, .game-container, .game-results {
-    max-width: 800px;
+.container {
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.game-selection {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.game-cards {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.game-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border-color: #007bff;
+}
+
+.game-card h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.game-card p {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.game-container {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-top: 20px;
 }
 
 .game-header {
     display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.game-header h2 {
+    margin: 0 auto;
+    color: #333;
+}
+
+.game-rules, .game-play, .game-results {
+    text-align: center;
+}
+
+.game-rules ul {
+    text-align: left;
+    display: inline-block;
+    margin: 20px 0;
+}
+
+.game-stats {
+    display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #e9ecef;
-    border-radius: 4px;
+    margin-bottom: 30px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    font-weight: bold;
 }
 
 .question-container {
-    text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .answer-buttons {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .btn {
     margin: 0 10px;
-    padding: 10px 20px;
+    padding: 12px 25px;
     font-size: 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.code-language {
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #495057;
+    font-size: 1.1em;
+}
+
+.code-block {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    white-space: pre-wrap;
+    margin-bottom: 25px;
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.4;
+    border-left: 4px solid #007bff;
+}
+
+.answer-section {
+    margin-top: 25px;
+    text-align: left;
+}
+
+.answer-section p {
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.line-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.line-btn {
+    text-align: left;
+    padding: 12px 15px;
+    background-color: #fff;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+}
+
+.line-btn:hover {
+    background-color: #f8f9fa;
+    border-color: #007bff;
+}
+
+.line-btn.selected {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    transform: translateX(5px);
 }
 
 .result-message {
     text-align: center;
     font-weight: bold;
     font-size: 18px;
-    padding: 10px;
-    border-radius: 4px;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 25px;
 }
 
 .correct {
     background-color: #d4edda;
     color: #155724;
+    border: 2px solid #c3e6cb;
 }
 
 .incorrect {
     background-color: #f8d7da;
     color: #721c24;
+    border: 2px solid #f5c6cb;
 }
 
 .game-results {
-    text-align: center;
+    padding: 40px 20px;
+}
+
+.game-results h3 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.game-results p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: #666;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .game-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .game-card {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .game-stats {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .answer-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn {
+        margin: 5px 0;
+    }
 }
 </style>
 
 <script>
-// Факты о компании X5 Tech
-const facts = [
+// Данные для игры "Правда или ложь"
+const truthFacts = [
     { text: "X5 Tech — IT-компания и основной цифровой партнёр торговых сетей и бизнесов X5 Group.", isTrue: true },
     { text: "X5 Tech разрабатывает онлайн- и офлайн-решения для компаний X5 Group.", isTrue: true },
     { text: "X5 Group управляет крупными розничными сетями «Пятёрочка», «Перекрёсток» и «Чижик».", isTrue: true },
@@ -114,7 +364,6 @@ const facts = [
     { text: "X5 Tech разрабатывает и поддерживает цифровые продукты для покупателей продуктовых сетей X5 Group.", isTrue: true }
 ];
 
-// Ложные утверждения
 const falseFacts = [
     { text: "X5 Tech была основана в 1995 году.", isTrue: false },
     { text: "X5 Tech специализируется исключительно на разработке игр.", isTrue: false },
@@ -126,7 +375,64 @@ const falseFacts = [
     { text: "X5 Tech является дочерней компанией Google.", isTrue: false }
 ];
 
-let gameState = {
+// Данные для игры "Найди баг"
+const codeExamples = [
+    {
+        language: "Python",
+        code: `def check_number(x):
+    if (x % 2 == 0) {
+        return True
+    else:
+        return False`,
+        correctLine: 2,
+        explanation: "Строка 2 - Фигурные скобки { вместо двоеточия в Python"
+    },
+    {
+        language: "JavaScript",
+        code: `function calculateSum(a, b) {
+    let result = a + b
+    print("Result: " + result)
+    return result
+}`,
+        correctLine: 3,
+        explanation: "Строка 3 - print() вместо console.log() в JavaScript"
+    },
+    {
+        language: "Python",
+        code: `names = ["Alice", "Bob", "Charlie"]
+for (let i = 0; i < names.length; i++):
+    print(names[i])`,
+        correctLine: 2,
+        explanation: "Строка 2 - Цикл for в стиле JavaScript вместо Python"
+    },
+    {
+        language: "Python",
+        code: `const user = {
+    name: "John",
+    age: 25
+}
+if user.age >= 18:
+    console.log("Adult")
+else:
+    console.log("Minor")`,
+        correctLine: 4,
+        explanation: "Строка 4 - Синтаксис if с двоеточием вместо фигурных скобок в JavaScript"
+    },
+    {
+        language: "Python",
+        code: `def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)
+    end`,
+        correctLine: 6,
+        explanation: "Строка 6 - Ключевое слово end из Ruby вместо отступов в Python"
+    }
+];
+
+// Состояния игр
+let truthGameState = {
     score: 0,
     currentQuestion: 0,
     totalQuestions: 5,
@@ -135,118 +441,266 @@ let gameState = {
     questions: []
 };
 
-// Функция для запуска игры
-function startGame() {
-    document.getElementById('game-rules').style.display = 'none';
-    document.getElementById('game-container').style.display = 'block';
+let bugGameState = {
+    score: 0,
+    currentQuestion: 0,
+    totalQuestions: 5,
+    selectedLine: null,
+    questions: []
+};
 
-    // Создаем массив вопросов: 5 случайных фактов (3 правдивых, 2 ложных)
-    gameState.questions = [];
+// Навигация по играм
+document.querySelectorAll('.game-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+        if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+            const gameId = card.dataset.game;
+            showGame(gameId);
+        }
+    });
+});
 
-    // Выбираем 3 случайных правдивых факта
-    const trueFacts = [...facts].sort(() => 0.5 - Math.random()).slice(0, 3);
-    gameState.questions.push(...trueFacts);
+document.getElementById('back-to-menu-truth').addEventListener('click', () => showGameSelection());
+document.getElementById('back-to-menu-bug').addEventListener('click', () => showGameSelection());
 
-    // Выбираем 2 случайных ложных факта
-    const randomFalseFacts = [...falseFacts].sort(() => 0.5 - Math.random()).slice(0, 2);
-    gameState.questions.push(...randomFalseFacts);
-
-    // Перемешиваем вопросы
-    gameState.questions = gameState.questions.sort(() => 0.5 - Math.random());
-
-    // Сбрасываем состояние игры
-    gameState.score = 0;
-    gameState.currentQuestion = 0;
-
-    // Показываем первый вопрос
-    showQuestion();
+function showGameSelection() {
+    document.getElementById('game-selection').style.display = 'block';
+    document.getElementById('truth-game').style.display = 'none';
+    document.getElementById('bug-game').style.display = 'none';
 }
 
-// Функция для отображения вопроса
-function showQuestion() {
-    // Сброс таймера
-    clearInterval(gameState.timer);
-    gameState.timeLeft = 60;
-    document.getElementById('timer').textContent = gameState.timeLeft;
+function showGame(gameId) {
+    document.getElementById('game-selection').style.display = 'none';
+    document.querySelectorAll('.game-container').forEach(game => {
+        game.style.display = 'none';
+    });
+    document.getElementById(gameId).style.display = 'block';
 
-    // Запуск таймера
-    gameState.timer = setInterval(updateTimer, 1000);
+    // Сброс состояния игры при показе
+    if (gameId === 'truth-game') {
+        resetTruthGame();
+    } else if (gameId === 'bug-game') {
+        resetBugGame();
+    }
+}
 
-    // Обновление счетчика вопросов
-    document.getElementById('current-question').textContent = gameState.currentQuestion + 1;
+// Игра "Правда или ложь"
+function resetTruthGame() {
+    document.getElementById('truth-game-rules').style.display = 'block';
+    document.getElementById('truth-game-play').style.display = 'none';
+    document.getElementById('truth-game-results').style.display = 'none';
+    clearInterval(truthGameState.timer);
+}
 
-    // Показ текущего вопроса
-    const currentQuestion = gameState.questions[gameState.currentQuestion];
-    document.getElementById('question-text').textContent = currentQuestion.text;
+document.getElementById('start-truth-game').addEventListener('click', startTruthGame);
+document.getElementById('restart-truth-game').addEventListener('click', startTruthGame);
 
-    // Скрытие сообщения о результате
-    document.getElementById('result-message').style.display = 'none';
+function startTruthGame() {
+    document.getElementById('truth-game-rules').style.display = 'none';
+    document.getElementById('truth-game-play').style.display = 'block';
+    document.getElementById('truth-game-results').style.display = 'none';
 
-    // Включение кнопок ответа
-    document.getElementById('true-btn').disabled = false;
+    // Создаем массив вопросов
+    truthGameState.questions = [];
+    const trueFacts = [...truthFacts].sort(() => 0.5 - Math.random()).slice(0, 3);
+    const randomFalseFacts = [...falseFacts].sort(() => 0.5 - Math.random()).slice(0, 2);
+    truthGameState.questions.push(...trueFacts, ...randomFalseFacts);
+    truthGameState.questions = truthGameState.questions.sort(() => 0.5 - Math.random());
+
+    // Сбрасываем состояние игры
+    truthGameState.score = 0;
+    truthGameState.currentQuestion = 0;
+    document.getElementById('truth-score').textContent = '0';
+
+    showTruthQuestion();
+}
+
+function showTruthQuestion() {
+    clearInterval(truthGameState.timer);
+    truthGameState.timeLeft = 60;
+    document.getElementById('truth-timer').textContent = truthGameState.timeLeft;
+
+    truthGameState.timer = setInterval(updateTruthTimer, 1000);
+
+    document.getElementById('truth-current-question').textContent = truthGameState.currentQuestion + 1;
+
+    const currentQuestion = truthGameState.questions[truthGameState.currentQuestion];
+    document.getElementById('truth-question-text').textContent = currentQuestion.text;
+
+    document.getElementById('truth-result-message').style.display = 'none';
+    document.getElementById('truth-btn').disabled = false;
     document.getElementById('false-btn').disabled = false;
 }
 
-// Функция обновления таймера
-function updateTimer() {
-    gameState.timeLeft--;
-    document.getElementById('timer').textContent = gameState.timeLeft;
+function updateTruthTimer() {
+    truthGameState.timeLeft--;
+    document.getElementById('truth-timer').textContent = truthGameState.timeLeft;
 
-    if (gameState.timeLeft <= 0) {
-        clearInterval(gameState.timer);
-        handleAnswer(false); // Время вышло, ответ неверный
+    if (truthGameState.timeLeft <= 0) {
+        clearInterval(truthGameState.timer);
+        handleTruthAnswer(false);
     }
 }
 
-// Функция обработки ответа
-function handleAnswer(userAnswer) {
-    clearInterval(gameState.timer);
+function handleTruthAnswer(userAnswer) {
+    clearInterval(truthGameState.timer);
 
-    // Отключение кнопок ответа
-    document.getElementById('true-btn').disabled = true;
+    document.getElementById('truth-btn').disabled = true;
     document.getElementById('false-btn').disabled = true;
 
-    const currentQuestion = gameState.questions[gameState.currentQuestion];
+    const currentQuestion = truthGameState.questions[truthGameState.currentQuestion];
     const isCorrect = (userAnswer === currentQuestion.isTrue);
 
-    // Обновление счета
     if (isCorrect) {
-        gameState.score++;
-        document.getElementById('score').textContent = gameState.score;
+        truthGameState.score++;
+        document.getElementById('truth-score').textContent = truthGameState.score;
     }
 
-    // Показ результата
-    const resultMessage = document.getElementById('result-message');
+    const resultMessage = document.getElementById('truth-result-message');
     resultMessage.textContent = isCorrect ? "Правильно!" : "Неправильно!";
     resultMessage.className = isCorrect ? "result-message correct" : "result-message incorrect";
     resultMessage.style.display = 'block';
 
-    // Переход к следующему вопросу через 2 секунды
-    setTimeout(nextQuestion, 2000);
+    setTimeout(nextTruthQuestion, 2000);
 }
 
-// Функция перехода к следующему вопросу
-function nextQuestion() {
-    gameState.currentQuestion++;
+function nextTruthQuestion() {
+    truthGameState.currentQuestion++;
 
-    if (gameState.currentQuestion < gameState.totalQuestions) {
-        showQuestion();
+    if (truthGameState.currentQuestion < truthGameState.totalQuestions) {
+        showTruthQuestion();
     } else {
-        endGame();
+        endTruthGame();
     }
 }
 
-// Функция завершения игры
-function endGame() {
-    document.getElementById('game-container').style.display = 'none';
-    document.getElementById('game-results').style.display = 'block';
-    document.getElementById('final-score').textContent = gameState.score;
+function endTruthGame() {
+    document.getElementById('truth-game-play').style.display = 'none';
+    document.getElementById('truth-game-results').style.display = 'block';
+    document.getElementById('truth-final-score').textContent = truthGameState.score;
 }
 
-// Обработчики событий
-document.getElementById('start-game').addEventListener('click', startGame);
-document.getElementById('restart-game').addEventListener('click', startGame);
-document.getElementById('true-btn').addEventListener('click', () => handleAnswer(true));
-document.getElementById('false-btn').addEventListener('click', () => handleAnswer(false));
+document.getElementById('truth-btn').addEventListener('click', () => handleTruthAnswer(true));
+document.getElementById('false-btn').addEventListener('click', () => handleTruthAnswer(false));
+
+// Игра "Найди баг"
+function resetBugGame() {
+    document.getElementById('bug-game-rules').style.display = 'block';
+    document.getElementById('bug-game-play').style.display = 'none';
+    document.getElementById('bug-game-results').style.display = 'none';
+}
+
+document.getElementById('start-bug-game').addEventListener('click', startBugGame);
+document.getElementById('restart-bug-game').addEventListener('click', startBugGame);
+
+function startBugGame() {
+    document.getElementById('bug-game-rules').style.display = 'none';
+    document.getElementById('bug-game-play').style.display = 'block';
+    document.getElementById('bug-game-results').style.display = 'none';
+
+    // Создаем массив вопросов
+    bugGameState.questions = [...codeExamples].sort(() => 0.5 - Math.random());
+
+    // Сбрасываем состояние игры
+    bugGameState.score = 0;
+    bugGameState.currentQuestion = 0;
+    bugGameState.selectedLine = null;
+    document.getElementById('bug-score').textContent = '0';
+
+    showBugQuestion();
+}
+
+function showBugQuestion() {
+    document.getElementById('bug-current-question').textContent = bugGameState.currentQuestion + 1;
+    document.getElementById('bug-score').textContent = bugGameState.score;
+
+    const currentQuestion = bugGameState.questions[bugGameState.currentQuestion];
+    document.getElementById('bug-language-name').textContent = currentQuestion.language;
+    document.getElementById('bug-code-block').textContent = currentQuestion.code;
+
+    createBugLineButtons(currentQuestion.code);
+
+    document.getElementById('bug-result-message').style.display = 'none';
+    bugGameState.selectedLine = null;
+}
+
+function createBugLineButtons(code) {
+    const lineButtonsContainer = document.getElementById('bug-line-buttons');
+    lineButtonsContainer.innerHTML = '';
+
+    const lines = code.split('\n');
+
+    lines.forEach((line, index) => {
+        const lineNumber = index + 1;
+        const button = document.createElement('button');
+        button.className = 'line-btn';
+        button.textContent = `Строка ${lineNumber}: ${line}`;
+        button.dataset.line = lineNumber;
+
+        button.addEventListener('click', () => {
+            document.querySelectorAll('#bug-line-buttons .line-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+
+            button.classList.add('selected');
+            bugGameState.selectedLine = lineNumber;
+        });
+
+        lineButtonsContainer.appendChild(button);
+    });
+
+    const submitButton = document.createElement('button');
+    submitButton.className = 'btn btn-primary submit-btn';
+    submitButton.textContent = 'Проверить ответ';
+    submitButton.addEventListener('click', checkBugAnswer);
+    lineButtonsContainer.appendChild(submitButton);
+}
+
+function checkBugAnswer() {
+    if (bugGameState.selectedLine === null) {
+        alert('Пожалуйста, выберите строку с ошибкой');
+        return;
+    }
+
+    const currentQuestion = bugGameState.questions[bugGameState.currentQuestion];
+    const isCorrect = (bugGameState.selectedLine === currentQuestion.correctLine);
+
+    if (isCorrect) {
+        bugGameState.score += 2;
+        document.getElementById('bug-score').textContent = bugGameState.score;
+    }
+
+    const resultMessage = document.getElementById('bug-result-message');
+    resultMessage.textContent = isCorrect
+        ? "Правильно! " + currentQuestion.explanation
+        : "Неправильно! " + currentQuestion.explanation;
+    resultMessage.className = isCorrect ? "result-message correct" : "result-message incorrect";
+    resultMessage.style.display = 'block';
+
+    document.querySelectorAll('#bug-line-buttons .line-btn').forEach(btn => {
+        btn.disabled = true;
+    });
+    document.querySelector('#bug-line-buttons .submit-btn').disabled = true;
+
+    setTimeout(nextBugQuestion, 3000);
+}
+
+function nextBugQuestion() {
+    bugGameState.currentQuestion++;
+
+    if (bugGameState.currentQuestion < bugGameState.totalQuestions) {
+        showBugQuestion();
+    } else {
+        endBugGame();
+    }
+}
+
+function endBugGame() {
+    document.getElementById('bug-game-play').style.display = 'none';
+    document.getElementById('bug-game-results').style.display = 'block';
+    document.getElementById('bug-final-score').textContent = bugGameState.score;
+}
+
+// Инициализация
+showGameSelection();
 </script>
 {% endblock %}
