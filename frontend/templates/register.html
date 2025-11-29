@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - X5Tech</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="/">X5Tech</a>
+        </div>
+        <div class="nav-menu">
+            <a href="/" class="nav-link">Главная</a>
+            <a href="/about" class="nav-link">О компании</a>
+            <a href="/login" class="nav-link">Войти</a>
+            <a href="/register" class="nav-link register-link">Регистрация</a>
+        </div>
+    </div>
+</nav>
+
+<main class="main-content">
+    <div class="form-container">
+        <h1>Регистрация</h1>
+        {% if error %}
+        <div class="error-message">{{ error }}</div>
+        {% endif %}
+        <form method="post" action="/register">
+            <div class="form-group">
+                <label for="full_name">ФИО:</label>
+                <input type="text" id="full_name" name="full_name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Номер телефона:</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="telegram_id">Telegram ID:</label>
+                <input type="text" id="telegram_id" name="telegram_id" required>
+            </div>
+            <div class="form-group">
+                <label for="study_direction">Направление подготовки:</label>
+                <input type="text" id="study_direction" name="study_direction">
+            </div>
+            <div class="form-group">
+                <label for="interests">Интересы:</label>
+                <textarea id="interests" name="interests" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+            </div>
+        </form>
+        <p>Уже есть аккаунт? <a href="/login">Войдите</a></p>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer-container">
+        <p>&copy; 2024 X5Tech. Все права защищены.</p>
+    </div>
+</footer>
+</body>
+</html>
