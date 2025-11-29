@@ -372,16 +372,6 @@ async def read_games(
         "games": games
     })
 
-# Health check
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy", "message": "X5Tech Platform is running"}
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
-
-    from fastapi import Cookie
 import json
 @app.post("/api/game/complete")
 async def complete_game(
