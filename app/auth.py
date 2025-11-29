@@ -1,3 +1,4 @@
+import hashlib
 from datetime import datetime, timedelta
 from typing import Optional
 from jose import JWTError, jwt
@@ -17,11 +18,18 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 security = HTTPBearer()
 
-def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
-
 def get_password_hash(password):
-    return pwd_context.hash(password)
+    # Временное решение - используем SHA256 вместо bcrypt
+    return hashlib.sha256(password.encode()).hexdigest()
+
+def verify_password(plain_password, hashed_password):
+    return hashlib.sha256(plain_password.encode()).hexdigest() == hashed_password
+#
+# def verify_password(plain_password, hashed_password):
+#     return pwd_context.verify(plain_password, hashed_password)
+#
+# def get_password_hash(password):
+#     return pwd_context.hash(password)
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()

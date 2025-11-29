@@ -78,32 +78,57 @@ async def register(
         interests: str = Form(None),
         db: Session = Depends(get_db)
 ):
-    user_data = schemas.UserCreate(
-        email=email,
-        phone=phone,
-        telegram_id=telegram_id,
-        full_name=full_name,
-        password=password,
-        study_direction=study_direction,
-        interests=interests
-    )
+    try:
+        # Проверяем длину пароля
+        if len(password) > 72:
+            return templates.TemplateResponse("auth/register.html", {
+                "request": request,
+                "error": "Пароль слишком длинный (максимум 72 символа)"
+            })
 
-    # Проверяем, существует ли пользователь
-    if crud.get_user_by_email(db, email):
+        # Проверяем минимальную длину пароля
+        if len(password) < 6:
+            return templates.TemplateResponse("auth/register.html", {
+                "request": request,
+                "error": "Пароль должен содержать минимум 6 символов"
+            })
+
+        # Проверяем, существует ли пользователь
+        if crud.get_user_by_email(db, email):
+            return templates.TemplateResponse("auth/register.html", {
+                "request": request,
+                "error": "Пользователь с таким email уже существует"
+            })
+
+        if crud.get_user_by_phone(db, phone):
+            return templates.TemplateResponse("auth/register.html", {
+                "request": request,
+                "error": "Пользователь с таким номером телефона уже существует"
+            })
+
+        # Создаем пользователя
+        hashed_password = auth.get_password_hash(password)
+        db_user = models.User(
+            email=email,
+            phone=phone,
+            telegram_id=telegram_id,
+            full_name=full_name,
+            interests=interests,
+            study_direction=study_direction,
+            hashed_password=hashed_password
+        )
+        db.add(db_user)
+        db.commit()
+        db.refresh(db_user)
+
+        return RedirectResponse(url="/login", status_code=303)
+
+    except Exception as e:
+        print(f"Ошибка при регистрации: {e}")
         return templates.TemplateResponse("auth/register.html", {
             "request": request,
-            "error": "Пользователь с таким email уже существует"
+            "error": f"Произошла ошибка при регистрации: {str(e)}"
         })
-
-    if crud.get_user_by_phone(db, phone):
-        return templates.TemplateResponse("auth/register.html", {
-            "request": request,
-            "error": "Пользователь с таким номером телефона уже существует"
-        })
-
-    user = crud.create_user(db=db, user=user_data)
-    return RedirectResponse(url="/login", status_code=303)
-
 # Вход в систему
 @app.get("/login", response_class=HTMLResponse)
 async def login_form(request: Request):
@@ -116,17 +141,25 @@ async def login(
         password: str = Form(...),
         db: Session = Depends(get_db)
 ):
-    user = auth.authenticate_user(db, email, password)
-    if not user:
+    try:
+        user = auth.authenticate_user(db, email, password)
+        if not user:
+            return templates.TemplateResponse("auth/login.html", {
+                "request": request,
+                "error": "Неверный email или пароль"
+            })
+
+        access_token = auth.create_access_token(data={"sub": user.email})
+        response = RedirectResponse(url="/", status_code=303)
+        response.set_cookie(key="access_token", value=f"Bearer {access_token}")
+        return response
+
+    except Exception as e:
+        print(f"Ошибка при входе: {e}")
         return templates.TemplateResponse("auth/login.html", {
             "request": request,
-            "error": "Неверный email или пароль"
+            "error": "Произошла ошибка при входе в систему"
         })
-
-    access_token = auth.create_access_token(data={"sub": user.email})
-    response = RedirectResponse(url="/profile", status_code=303)
-    response.set_cookie(key="access_token", value=f"Bearer {access_token}")
-    return response
 
 # Выход из системы
 @app.get("/logout")
