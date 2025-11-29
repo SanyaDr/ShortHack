@@ -1,12 +1,252 @@
 {% extends "base.html" %}
 
-{% block title %}Игры - X5Tech{% endblock %}
+{% block title %}Правда или ложь - X5Tech{% endblock %}
 
 {% block content %}
 <div class="container">
-    <h1>Игры</h1>
-    <div class="games-content">
-        <p>Скоро здесь появятся увлекательные игры...</p>
+    <h1>Правда или ложь о компании X5 Tech</h1>
+
+    <div id="game-rules" class="game-rules">
+        <h2>Правила игры</h2>
+        <ul>
+            <li>Вы получите 5 случайных вопросов о компании X5 Tech</li>
+            <li>1 верный ответ = 1 балл</li>
+            <li>Неверный ответ = 0 баллов</li>
+            <li>На каждый вопрос у вас есть 60 секунд</li>
+        </ul>
+        <button id="start-game" class="btn btn-primary">Начать игру</button>
+    </div>
+
+    <div id="game-container" class="game-container" style="display: none;">
+        <div class="game-header">
+            <div class="score">Баллы: <span id="score">0</span>/5</div>
+            <div class="timer">Время: <span id="timer">60</span> сек</div>
+            <div class="question-counter">Вопрос <span id="current-question">1</span>/5</div>
+        </div>
+
+        <div class="question-container">
+            <h2 id="question-text"></h2>
+            <div class="answer-buttons">
+                <button id="true-btn" class="btn btn-success">Правда</button>
+                <button id="false-btn" class="btn btn-danger">Ложь</button>
+            </div>
+        </div>
+
+        <div id="result-message" class="result-message" style="display: none;"></div>
+    </div>
+
+    <div id="game-results" class="game-results" style="display: none;">
+        <h2>Результаты игры</h2>
+        <p>Вы набрали <span id="final-score">0</span> из 5 баллов!</p>
+        <button id="restart-game" class="btn btn-primary">Играть снова</button>
     </div>
 </div>
+
+<style>
+.game-rules, .game-container, .game-results {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+}
+
+.question-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.answer-buttons {
+    margin-top: 20px;
+}
+
+.btn {
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.result-message {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.correct {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.incorrect {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.game-results {
+    text-align: center;
+}
+</style>
+
+<script>
+// Факты о компании X5 Tech
+const facts = [
+    { text: "X5 Tech — IT-компания и основной цифровой партнёр торговых сетей и бизнесов X5 Group.", isTrue: true },
+    { text: "X5 Tech разрабатывает онлайн- и офлайн-решения для компаний X5 Group.", isTrue: true },
+    { text: "X5 Group управляет крупными розничными сетями «Пятёрочка», «Перекрёсток» и «Чижик».", isTrue: true },
+    { text: "В X5 Tech работает более 5000 специалистов.", isTrue: true },
+    { text: "Решения X5 Tech помогают сотням тысяч сотрудников X5 Group работать с технологическим комфортом.", isTrue: true },
+    { text: "Технологии X5 Tech ежедневно используют миллионы покупателей X5 Group.", isTrue: true },
+    { text: "X5 Tech активно работает с большими данными и аналитикой для ритейла.", isTrue: true },
+    { text: "В X5 Tech применяются методы машинного обучения и искусственного интеллекта для задач розничной торговли.", isTrue: true },
+    { text: "X5 Tech участвует в развитии цифровых сервисов X5 Group, включая e-commerce и доставку.", isTrue: true },
+    { text: "X5 Tech разрабатывает и поддерживает цифровые продукты для покупателей продуктовых сетей X5 Group.", isTrue: true }
+];
+
+// Ложные утверждения
+const falseFacts = [
+    { text: "X5 Tech была основана в 1995 году.", isTrue: false },
+    { text: "X5 Tech специализируется исключительно на разработке игр.", isTrue: false },
+    { text: "Компания X5 Tech не имеет отношения к продуктовым сетям.", isTrue: false },
+    { text: "В X5 Tech работает менее 100 сотрудников.", isTrue: false },
+    { text: "X5 Tech не использует технологии искусственного интеллекта.", isTrue: false },
+    { text: "X5 Tech разрабатывает решения только для зарубежных компаний.", isTrue: false },
+    { text: "X5 Tech не занимается разработкой мобильных приложений.", isTrue: false },
+    { text: "X5 Tech является дочерней компанией Google.", isTrue: false }
+];
+
+let gameState = {
+    score: 0,
+    currentQuestion: 0,
+    totalQuestions: 5,
+    timer: null,
+    timeLeft: 60,
+    questions: []
+};
+
+// Функция для запуска игры
+function startGame() {
+    document.getElementById('game-rules').style.display = 'none';
+    document.getElementById('game-container').style.display = 'block';
+
+    // Создаем массив вопросов: 5 случайных фактов (3 правдивых, 2 ложных)
+    gameState.questions = [];
+
+    // Выбираем 3 случайных правдивых факта
+    const trueFacts = [...facts].sort(() => 0.5 - Math.random()).slice(0, 3);
+    gameState.questions.push(...trueFacts);
+
+    // Выбираем 2 случайных ложных факта
+    const randomFalseFacts = [...falseFacts].sort(() => 0.5 - Math.random()).slice(0, 2);
+    gameState.questions.push(...randomFalseFacts);
+
+    // Перемешиваем вопросы
+    gameState.questions = gameState.questions.sort(() => 0.5 - Math.random());
+
+    // Сбрасываем состояние игры
+    gameState.score = 0;
+    gameState.currentQuestion = 0;
+
+    // Показываем первый вопрос
+    showQuestion();
+}
+
+// Функция для отображения вопроса
+function showQuestion() {
+    // Сброс таймера
+    clearInterval(gameState.timer);
+    gameState.timeLeft = 60;
+    document.getElementById('timer').textContent = gameState.timeLeft;
+
+    // Запуск таймера
+    gameState.timer = setInterval(updateTimer, 1000);
+
+    // Обновление счетчика вопросов
+    document.getElementById('current-question').textContent = gameState.currentQuestion + 1;
+
+    // Показ текущего вопроса
+    const currentQuestion = gameState.questions[gameState.currentQuestion];
+    document.getElementById('question-text').textContent = currentQuestion.text;
+
+    // Скрытие сообщения о результате
+    document.getElementById('result-message').style.display = 'none';
+
+    // Включение кнопок ответа
+    document.getElementById('true-btn').disabled = false;
+    document.getElementById('false-btn').disabled = false;
+}
+
+// Функция обновления таймера
+function updateTimer() {
+    gameState.timeLeft--;
+    document.getElementById('timer').textContent = gameState.timeLeft;
+
+    if (gameState.timeLeft <= 0) {
+        clearInterval(gameState.timer);
+        handleAnswer(false); // Время вышло, ответ неверный
+    }
+}
+
+// Функция обработки ответа
+function handleAnswer(userAnswer) {
+    clearInterval(gameState.timer);
+
+    // Отключение кнопок ответа
+    document.getElementById('true-btn').disabled = true;
+    document.getElementById('false-btn').disabled = true;
+
+    const currentQuestion = gameState.questions[gameState.currentQuestion];
+    const isCorrect = (userAnswer === currentQuestion.isTrue);
+
+    // Обновление счета
+    if (isCorrect) {
+        gameState.score++;
+        document.getElementById('score').textContent = gameState.score;
+    }
+
+    // Показ результата
+    const resultMessage = document.getElementById('result-message');
+    resultMessage.textContent = isCorrect ? "Правильно!" : "Неправильно!";
+    resultMessage.className = isCorrect ? "result-message correct" : "result-message incorrect";
+    resultMessage.style.display = 'block';
+
+    // Переход к следующему вопросу через 2 секунды
+    setTimeout(nextQuestion, 2000);
+}
+
+// Функция перехода к следующему вопросу
+function nextQuestion() {
+    gameState.currentQuestion++;
+
+    if (gameState.currentQuestion < gameState.totalQuestions) {
+        showQuestion();
+    } else {
+        endGame();
+    }
+}
+
+// Функция завершения игры
+function endGame() {
+    document.getElementById('game-container').style.display = 'none';
+    document.getElementById('game-results').style.display = 'block';
+    document.getElementById('final-score').textContent = gameState.score;
+}
+
+// Обработчики событий
+document.getElementById('start-game').addEventListener('click', startGame);
+document.getElementById('restart-game').addEventListener('click', startGame);
+document.getElementById('true-btn').addEventListener('click', () => handleAnswer(true));
+document.getElementById('false-btn').addEventListener('click', () => handleAnswer(false));
+</script>
 {% endblock %}
