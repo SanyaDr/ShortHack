@@ -1,45 +1,181 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>О компании - X5Tech</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
-<nav class="navbar">
-    <div class="nav-container">
-        <div class="nav-logo">
-            <a href="/">X5Tech</a>
-        </div>
-        <div class="nav-menu">
-            <a href="/" class="nav-link">Главная</a>
-            <a href="/about" class="nav-link">О компании</a>
-            <a href="/internships" class="nav-link">Стажировки</a>
-            <a href="/games" class="nav-link">Игры</a>
-            <a href="/leaderboard" class="nav-link">Лидерборд</a>
-            <a href="/rewards" class="nav-link">Награды</a>
-            <a href="/login" class="nav-link">Войти</a>
-            <a href="/register" class="nav-link register-link">Регистрация</a>
-        </div>
-    </div>
-</nav>
+{% extends "base.html" %}
 
-<main class="main-content">
+{% block title %}О компании - X5Tech{% endblock %}
+
+{% block content %}
+<div class="about-hero-section">
     <div class="container">
-        <h1>О компании X5Tech</h1>
-        <div class="about-content">
-            <p>X5Tech - инновационная компания, предоставляющая уникальные возможности для студентов и начинающих специалистов.</p>
-            <h2>Наша миссия</h2>
-            <p>Развивать таланты и предоставлять карьерные возможности для нового поколения IT-специалистов.</p>
+        <div class="about-hero-content">
+            <h1>О компании X5Tech</h1>
+            <p class="hero-subtitle">Создаем будущее технологий вместе с талантливыми специалистами</p>
         </div>
     </div>
-</main>
+</div>
 
-<footer class="footer">
-    <div class="footer-container">
-        <p>&copy; 2025 X5Tech. Все права защищены.</p>
+<div class="about-content-section">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-main-content">
+                <div class="about-section">
+                    <h2>Наша миссия</h2>
+                    <p>X5Tech - это инновационная IT-компания, которая стремится изменить мир технологий через развитие талантов и создание передовых решений. Мы верим, что будущее создается сегодня, и именно поэтому инвестируем в новое поколение IT-специалистов.</p>
+                </div>
+
+                <div class="about-section">
+                    <h2>Что мы делаем</h2>
+                    <div class="what-we-do-grid">
+                        <div class="what-we-do-item">
+                            <div class="what-we-do-icon">🚀</div>
+                            <h3>Инновационные проекты</h3>
+                            <p>Разрабатываем cutting-edge решения в области искусственного интеллекта, машинного обучения и больших данных</p>
+                        </div>
+                        <div class="what-we-do-item">
+                            <div class="what-we-do-icon">🌍</div>
+                            <h3>Глобальное влияние</h3>
+                            <p>Наши продукты используются миллионами пользователей по всему миру, делая их жизнь лучше и удобнее</p>
+                        </div>
+                        <div class="what-we-do-item">
+                            <div class="what-we-do-icon">💡</div>
+                            <h3>Развитие талантов</h3>
+                            <p>Создаем образовательные программы и стажировки для подготовки будущих лидеров IT-индустрии</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-section">
+                    <h2>Наши ценности</h2>
+                    <div class="values-grid">
+                        <div class="value-card">
+                            <h3>Инновации</h3>
+                            <p>Мы постоянно ищем новые подходы и технологии для решения сложных задач</p>
+                        </div>
+                        <div class="value-card">
+                            <h3>Качество</h3>
+                            <p>Стремимся к совершенству в каждом проекте и каждой строке кода</p>
+                        </div>
+                        <div class="value-card">
+                            <h3>Команда</h3>
+                            <p>Верим в силу сотрудничества и поддерживаем друг друга в достижении общих целей</p>
+                        </div>
+                        <div class="value-card">
+                            <h3>Развитие</h3>
+                            <p>Поощряем непрерывное обучение и профессиональный рост каждого сотрудника</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-section">
+                    <h2>Технологический стек</h2>
+                    <div class="tech-stack">
+                        <div class="tech-category">
+                            <h4>Backend</h4>
+                            <div class="tech-tags">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Java</span>
+                                <span class="tech-tag">Go</span>
+                                <span class="tech-tag">Node.js</span>
+                            </div>
+                        </div>
+                        <div class="tech-category">
+                            <h4>Frontend</h4>
+                            <div class="tech-tags">
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">Vue.js</span>
+                                <span class="tech-tag">TypeScript</span>
+                                <span class="tech-tag">Next.js</span>
+                            </div>
+                        </div>
+                        <div class="tech-category">
+                            <h4>Базы данных</h4>
+                            <div class="tech-tags">
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">MongoDB</span>
+                                <span class="tech-tag">Redis</span>
+                                <span class="tech-tag">Elasticsearch</span>
+                            </div>
+                        </div>
+                        <div class="tech-category">
+                            <h4>Инфраструктура</h4>
+                            <div class="tech-tags">
+                                <span class="tech-tag">Kubernetes</span>
+                                <span class="tech-tag">Docker</span>
+                                <span class="tech-tag">AWS</span>
+                                <span class="tech-tag">Terraform</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-sidebar">
+                <div class="sidebar-card">
+                    <h3>Факты о нас</h3>
+                    <div class="facts-list">
+                        <div class="fact-item">
+                            <div class="fact-number">2015</div>
+                            <div class="fact-text">Год основания компании</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-number">500+</div>
+                            <div class="fact-text">Сотрудников в команде</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-number">20+</div>
+                            <div class="fact-text">Стран присутствия</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-number">50+</div>
+                            <div class="fact-text">Успешных проектов</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3>Карьерные возможности</h3>
+                    <ul class="career-list">
+                        <li>🔄 Стажировки для студентов</li>
+                        <li>🚀 Junior/Middle/Senior позиции</li>
+                        <li>📈 Программа менторства</li>
+                        <li>🎓 Корпоративное обучение</li>
+                        <li>🌍 Релокация в другие страны</li>
+                    </ul>
+                    <a href="/internships" class="btn btn-primary btn-small">Смотреть стажировки</a>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3>Контакты</h3>
+                    <div class="contact-info">
+                        <p><strong>Email:</strong> career@x5tech.com</p>
+                        <p><strong>Телефон:</strong> +7 (123) 456 78-90</p>
+                        <p><strong>Адрес:</strong> Москва, ул. Средняя Калитниковская, д. 28</p>
+                        <p><strong>Соцсети:</strong></p>
+                        <div class="social-links">
+                            <a href="#" class="social-link">Telegram</a>
+                            <a href="#" class="social-link">VK</a>
+                            <a href="#" class="social-link">LinkedIn</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</footer>
-</body>
-</html>
+</div>
+
+<div class="cta-about-section">
+    <div class="container">
+        <div class="cta-about-content">
+            <h2>Хочешь стать частью нашей команды?</h2>
+            <p>Присоединяйся к X5Tech и участвуй в создании технологий будущего!</p>
+            <div class="cta-about-actions">
+                {% if user %}
+                <a href="/internships" class="btn btn-primary">Смотреть стажировки</a>
+                <a href="/games" class="btn btn-secondary">Узнать о компании через игры</a>
+                {% else %}
+                <a href="/register" class="btn btn-primary">Зарегистрироваться</a>
+                <a href="/internships" class="btn btn-secondary">Узнать о стажировках</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

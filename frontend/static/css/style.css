@@ -375,3 +375,1478 @@ tr:hover {
     font-size: 0.9rem;
     font-weight: bold;
 }
+
+/* Секция "Как это работает" */
+.how-it-works-section {
+    padding: 80px 20px;
+    background-color: white;
+}
+
+.how-it-works-section h2 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.step-card {
+    background: #f8fdf5;
+    padding: 40px 25px;
+    border-radius: 12px;
+    text-align: center;
+    border: 2px solid #e8f5e8;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(95, 175, 45, 0.15);
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #5FAF2D, #4d9525);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0 auto 25px auto;
+    box-shadow: 0 4px 15px rgba(95, 175, 45, 0.3);
+}
+
+.step-card h3 {
+    color: #5FAF2D;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.step-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Секция предпросмотра игр */
+.games-preview-section {
+    padding: 80px 20px;
+    background-color: #f8fdf5;
+}
+
+.games-preview-section h2 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.game-card {
+    background: white;
+    padding: 30px 25px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    border-color: #5FAF2D;
+    box-shadow: 0 10px 30px rgba(95, 175, 45, 0.15);
+}
+
+.game-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.game-card h3 {
+    color: #5FAF2D;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.game-card p {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.game-points {
+    background-color: #5FAF2D;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+/* Секция предпросмотра наград */
+.rewards-preview-section {
+    padding: 80px 20px;
+    background-color: white;
+}
+
+.rewards-preview-section h2 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.rewards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.reward-preview-card {
+    background: #f8fdf5;
+    padding: 30px 25px;
+    border-radius: 12px;
+    text-align: center;
+    border: 2px solid #e8f5e8;
+    transition: all 0.3s ease;
+}
+
+.reward-preview-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(95, 175, 45, 0.15);
+}
+
+.reward-badge {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.reward-preview-card h3 {
+    color: #5FAF2D;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.reward-preview-card p {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.reward-points {
+    background-color: #5FAF2D;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+/* Секция статистики */
+.stats-section {
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #5FAF2D, #4d9525);
+    color: white;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    text-align: center;
+}
+
+.stat-item {
+    padding: 20px;
+}
+
+.stat-number {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.stat-label {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+/* Секция отзывов */
+.testimonials-section {
+    padding: 80px 20px;
+    background-color: #f8fdf5;
+}
+
+.testimonials-section h2 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-left: 4px solid #5FAF2D;
+}
+
+.testimonial-text {
+    font-style: italic;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.testimonial-author {
+    border-top: 1px solid #e8f5e8;
+    padding-top: 15px;
+}
+
+.testimonial-author strong {
+    color: #5FAF2D;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.testimonial-author span {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* Секция призыва к действию */
+.cta-section {
+    padding: 100px 20px;
+    background-color: white;
+}
+
+.cta-content {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.cta-content h2 {
+    color: #5FAF2D;
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+}
+
+.cta-content p {
+    font-size: 1.3rem;
+    margin-bottom: 40px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.cta-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Адаптивность для новых секций */
+@media (max-width: 768px) {
+    .steps-grid,
+    .games-grid,
+    .rewards-grid,
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+    }
+
+    .cta-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cta-content h2 {
+        font-size: 2.2rem;
+    }
+
+    .step-card,
+    .game-card,
+    .reward-preview-card {
+        padding: 25px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+}
+
+/* Стили для страницы "О компании" */
+.about-hero-section {
+    background: linear-gradient(135deg, #5FAF2D, #4d9525);
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.about-hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.hero-subtitle {
+    font-size: 1.4rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.about-content-section {
+    padding: 80px 20px;
+    background-color: #f8f9fa;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about-main-content {
+    background: white;
+    padding: 50px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.about-section {
+    margin-bottom: 60px;
+}
+
+.about-section:last-child {
+    margin-bottom: 0;
+}
+
+.about-section h2 {
+    color: #5FAF2D;
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    border-bottom: 3px solid #5FAF2D;
+    padding-bottom: 10px;
+}
+
+.about-section p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Что мы делаем */
+.what-we-do-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.what-we-do-item {
+    text-align: center;
+    padding: 30px 20px;
+    background: #f8fdf5;
+    border-radius: 8px;
+    border: 2px solid #e8f5e8;
+    transition: transform 0.3s ease;
+}
+
+.what-we-do-item:hover {
+    transform: translateY(-5px);
+}
+
+.what-we-do-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.what-we-do-item h3 {
+    color: #5FAF2D;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.what-we-do-item p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Ценности */
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.value-card {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    border-left: 4px solid #5FAF2D;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
+
+.value-card:hover {
+    transform: translateY(-3px);
+}
+
+.value-card h3 {
+    color: #5FAF2D;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.value-card p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Технологический стек */
+.tech-stack {
+    margin-top: 30px;
+}
+
+.tech-category {
+    margin-bottom: 25px;
+}
+
+.tech-category h4 {
+    color: #5FAF2D;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tech-tag {
+    background: #5FAF2D;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Сайдбар */
+.about-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.sidebar-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.sidebar-card h3 {
+    color: #5FAF2D;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    border-bottom: 2px solid #e8f5e8;
+    padding-bottom: 10px;
+}
+
+/* Факты */
+.facts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.fact-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #f8fdf5;
+    border-radius: 8px;
+    border: 1px solid #e8f5e8;
+}
+
+.fact-number {
+    background: #5FAF2D;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.fact-text {
+    color: #555;
+    font-weight: 500;
+}
+
+/* Карьерные возможности */
+.career-list {
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.career-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+    color: #555;
+    font-size: 1rem;
+}
+
+.career-list li:last-child {
+    border-bottom: none;
+}
+
+.btn-small {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+}
+
+/* Контакты */
+.contact-info p {
+    margin-bottom: 12px;
+    color: #555;
+    font-size: 1rem;
+}
+
+.contact-info strong {
+    color: #5FAF2D;
+}
+
+.social-links {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.social-link {
+    background: #5FAF2D;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.social-link:hover {
+    background: #4d9525;
+}
+
+/* CTA секция */
+.cta-about-section {
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #5FAF2D, #4d9525);
+    color: white;
+    text-align: center;
+}
+
+.cta-about-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.cta-about-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-about-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .about-main-content {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .about-section h2 {
+        font-size: 1.8rem;
+    }
+
+    .what-we-do-grid,
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tech-tags {
+        justify-content: center;
+    }
+
+    .facts-list {
+        gap: 15px;
+    }
+
+    .fact-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .cta-about-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cta-about-content h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .about-main-content {
+        padding: 20px;
+    }
+
+    .about-section {
+        margin-bottom: 40px;
+    }
+
+    .sidebar-card {
+        padding: 20px;
+    }
+}
+
+/* Стили для страниц аутентификации */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    padding: 40px 20px;
+    background-color: #f8fdf5;
+}
+
+.auth-card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 450px;
+    border: 2px solid #e8f5e8;
+}
+
+.auth-card h1 {
+    color: #5FAF2D;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+.auth-form {
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e8f5e8;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s;
+    background-color: #f8fdf5;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #5FAF2D;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(95, 175, 45, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-group small {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.btn-full {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1rem;
+}
+
+.auth-links {
+    text-align: center;
+    border-top: 1px solid #e8f5e8;
+    padding-top: 20px;
+}
+
+.auth-links p {
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.auth-links a {
+    color: #5FAF2D;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
+
+/* Стили для профиля */
+.profile-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.profile-header h1 {
+    color: #5FAF2D;
+    margin-bottom: 10px;
+}
+
+.profile-content {
+    display: grid;
+    gap: 30px;
+}
+
+.profile-card,
+.stats-card,
+.actions-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 1px solid #e8f5e8;
+}
+
+.profile-card h2,
+.stats-card h2,
+.actions-card h2 {
+    color: #5FAF2D;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #e8f5e8;
+    padding-bottom: 10px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-item strong {
+    color: #333;
+    min-width: 200px;
+}
+
+.info-item span {
+    color: #666;
+    text-align: right;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 20px;
+    background: #f8fdf5;
+    border-radius: 8px;
+    border: 2px solid #e8f5e8;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #5FAF2D;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 20px;
+    background: #f8fdf5;
+    border: 2px solid #e8f5e8;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.3s;
+}
+
+.action-btn:hover {
+    background: #5FAF2D;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(95, 175, 45, 0.3);
+}
+
+.action-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.action-text {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Стили для других страниц */
+.internships-container,
+.leaderboard-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.internships-header,
+.leaderboard-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.internships-header h1,
+.leaderboard-header h1 {
+    color: #5FAF2D;
+    margin-bottom: 10px;
+}
+
+.info-card,
+.coming-soon-card,
+.leaderboard-card,
+.motivation-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 1px solid #e8f5e8;
+    margin-bottom: 30px;
+}
+
+.coming-soon-card {
+    text-align: center;
+}
+
+.coming-soon-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.coming-soon-card h3 {
+    color: #5FAF2D;
+    margin-bottom: 15px;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.benefit-card {
+    background: #f8fdf5;
+    padding: 25px;
+    border-radius: 8px;
+    border: 2px solid #e8f5e8;
+    text-align: center;
+}
+
+.benefit-card h3 {
+    color: #5FAF2D;
+    margin-bottom: 10px;
+}
+
+.leaderboard-preview {
+    max-width: 400px;
+    margin: 30px auto 0;
+}
+
+.preview-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #f8fdf5;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 2px solid #e8f5e8;
+}
+
+.preview-item.first-place {
+    background: linear-gradient(135deg, #5FAF2D, #4d9525);
+    color: white;
+    border-color: #5FAF2D;
+}
+
+.rank {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.name {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.points {
+    font-weight: 600;
+    color: #5FAF2D;
+}
+
+.preview-item.first-place .points {
+    color: white;
+}
+
+.motivation-list {
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.motivation-list li {
+    padding: 10px 0;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.motivation-list li:last-child {
+    border-bottom: none;
+}
+
+.cta-section {
+    text-align: center;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .auth-card {
+        padding: 30px 20px;
+        margin: 20px;
+    }
+
+    .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .info-item span {
+        text-align: left;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .actions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .preview-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+}
+
+/* Стили для страниц аутентификации */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    padding: 40px 20px;
+    background-color: #f8fdf5;
+}
+
+.auth-card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 450px;
+    border: 2px solid #e8f5e8;
+}
+
+.auth-card h1 {
+    color: #5FAF2D;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+.auth-form {
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e8f5e8;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s;
+    background-color: #f8fdf5;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #5FAF2D;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(95, 175, 45, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-group small {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.btn-full {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1rem;
+}
+
+.auth-links {
+    text-align: center;
+    border-top: 1px solid #e8f5e8;
+    padding-top: 20px;
+}
+
+.auth-links p {
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.auth-links a {
+    color: #5FAF2D;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
+
+/* Стили для профиля */
+.profile-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.profile-header h1 {
+    color: #5FAF2D;
+    margin-bottom: 10px;
+}
+
+.profile-content {
+    display: grid;
+    gap: 30px;
+}
+
+.profile-card,
+.stats-card,
+.actions-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 1px solid #e8f5e8;
+}
+
+.profile-card h2,
+.stats-card h2,
+.actions-card h2 {
+    color: #5FAF2D;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #e8f5e8;
+    padding-bottom: 10px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-item strong {
+    color: #333;
+    min-width: 200px;
+}
+
+.info-item span {
+    color: #666;
+    text-align: right;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 20px;
+    background: #f8fdf5;
+    border-radius: 8px;
+    border: 2px solid #e8f5e8;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #5FAF2D;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+
+.action-btn:hover {
+    background: #5FAF2D;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(95, 175, 45, 0.3);
+}
+
+.action-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.action-text {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Стили для других страниц */
+.internships-container,
+.leaderboard-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.internships-header,
+.leaderboard-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.internships-header h1,
+.leaderboard-header h1 {
+    color: #5FAF2D;
+    margin-bottom: 10px;
+}
+
+.info-card,
+.coming-soon-card,
+.leaderboard-card,
+.motivation-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 1px solid #e8f5e8;
+    margin-bottom: 30px;
+}
+
+.coming-soon-card {
+    text-align: center;
+}
+
+.coming-soon-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.coming-soon-card h3 {
+    color: #5FAF2D;
+    margin-bottom: 15px;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.benefit-card {
+    background: #f8fdf5;
+    padding: 25px;
+    border-radius: 8px;
+    border: 2px solid #e8f5e8;
+    text-align: center;
+}
+
+.benefit-card h3 {
+    color: #5FAF2D;
+    margin-bottom: 10px;
+}
+
+.leaderboard-preview {
+    max-width: 400px;
+    margin: 30px auto 0;
+}
+
+.preview-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #f8fdf5;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 2px solid #e8f5e8;
+}
+
+.preview-item.first-place {
+    background: linear-gradient(135deg, #5FAF2D, #4d9525);
+    color: white;
+    border-color: #5FAF2D;
+}
+
+.rank {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.name {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.points {
+    font-weight: 600;
+    color: #5FAF2D;
+}
+
+.preview-item.first-place .points {
+    color: white;
+}
+
+.motivation-list {
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.motivation-list li {
+    padding: 10px 0;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.motivation-list li:last-child {
+    border-bottom: none;
+}
+
+.cta-section {
+    text-align: center;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .auth-card {
+        padding: 30px 20px;
+        margin: 20px;
+    }
+
+    .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .info-item span {
+        text-align: left;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .actions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .preview-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+}

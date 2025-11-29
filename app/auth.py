@@ -1,4 +1,3 @@
-import hashlib
 from datetime import datetime, timedelta
 from typing import Optional
 from jose import JWTError, jwt
@@ -15,28 +14,25 @@ SECRET_KEY = "your-secret-key-change-in-production"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
+# Упрощенная настройка CryptContext без проблемных параметров
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 security = HTTPBearer()
 
-def get_password_hash(password):
-    # Временное решение - используем SHA256 вместо bcrypt
-    return hashlib.sha256(password.encode()).hexdigest()
-
 def verify_password(plain_password, hashed_password):
-    return hashlib.sha256(plain_password.encode()).hexdigest() == hashed_password
-#
-# def verify_password(plain_password, hashed_password):
-#     return pwd_context.verify(plain_password, hashed_password)
-#
-# def get_password_hash(password):
-#     return pwd_context.hash(password)
+    return pwd_context.verify(plain_password, hashed_password)
+
+def get_password_hash(password):
+    # Обрезаем пароль до 72 символов для bcrypt
+    if len(password) > 72:
+        password = password[:72]
+    return pwd_context.hash(password)
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(minutes=15)
+        expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
@@ -75,3 +71,15 @@ def get_current_active_user(current_user: schemas.User = Depends(get_current_use
     if not current_user.is_active:
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
+
+# Экспортируем константы для использования в других модулях
+__all__ = [
+    'SECRET_KEY',
+    'ALGORITHM',
+    'verify_password',
+    'get_password_hash',
+    'create_access_token',
+    'authenticate_user',
+    'get_current_user',
+    'get_current_active_user'
+]

@@ -1,53 +1,40 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Вход - X5Tech</title>
-  <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
-<nav class="navbar">
-  <div class="nav-container">
-    <div class="nav-logo">
-      <a href="/frontend/static">X5Tech</a>
-    </div>
-    <div class="nav-menu">
-      <a href="/frontend/static" class="nav-link">Главная</a>
-      <a href="/about" class="nav-link">О компании</a>
-      <a href="/login" class="nav-link">Войти</a>
-      <a href="/register" class="nav-link register-link">Регистрация</a>
-    </div>
-  </div>
-</nav>
+{% extends "base.html" %}
 
-<main class="main-content">
-  <div class="form-container">
+{% block title %}Вход - X5Tech{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+  <div class="auth-card">
     <h1>Вход в систему</h1>
+
     {% if error %}
-    <div class="error-message">{{ error }}</div>
+    <div class="error-message">
+      {{ error }}
+    </div>
     {% endif %}
-    <form method="post" action="/login">
+
+    <form method="post" action="/login" class="auth-form">
       <div class="form-group">
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+        <input type="email" id="email" name="email" required
+               placeholder="your.email@example.com">
       </div>
+
       <div class="form-group">
         <label for="password">Пароль:</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password" required
+               placeholder="Введите ваш пароль">
       </div>
+
       <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Войти</button>
+        <button type="submit" class="btn btn-primary btn-full">Войти</button>
       </div>
     </form>
-    <p>Нет аккаунта? <a href="/register">Зарегистрируйтесь</a></p>
-  </div>
-</main>
 
-<footer class="footer">
-  <div class="footer-container">
-    <p>&copy; 2025 X5Tech. Все права защищены.</p>
+    <div class="auth-links">
+      <p>Нет аккаунта? <a href="/register">Зарегистрируйтесь</a></p>
+      <p><a href="/">Вернуться на главную</a></p>
+    </div>
   </div>
-</footer>
-</body>
-</html>
+</div>
+{% endblock %}
